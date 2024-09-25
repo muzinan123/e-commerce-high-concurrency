@@ -515,7 +515,7 @@
                 </div> <!-- end col img slider -->
 
                 <div class="col-md-6 product-single">
-                    <h1 class="product-single__title uppercase">测试，由html控制器生成 imooc 秒杀商品</h1>
+                    <h1 class="product-single__title uppercase"></h1>
 
                     <div class="rating">
                         <a href="#">101 Reviews</a>
@@ -550,7 +550,7 @@
                             <div class="col">
                                 <a href="#" class="btn btn-lg btn-color product-single__add-to-cart">
                                     <i class="ui-bag"></i>
-                                    <span ><a href="/product/order?productID=1">立即抢购</a> </span>
+                                    <span ><a href="/product/order?productID=1">xxxx</a> </span>
 
                                 </a>
                             </div>
@@ -891,40 +891,40 @@
     </section> <!-- end related products -->
 
     <script>
-        var startTime = "Mon Jun 18 2018 19:34:20 GMT+0800 (CST)" //秒杀开始时间
-        //求时间差秒级别
+        var startTime = "Mon Jun 18 2018 19:34:20 GMT+0800 (CST)" 
+
         function contrastTime(begin, end) {
-            var difference = (Date.parse(end) - Date.parse(begin)) / 1000; //利用时间戳算出相差的时间
+            var difference = (Date.parse(end) - Date.parse(begin)) / 1000; 
             return difference;
         }
 
-        //判断时间是否可以
+  
         function isTimeOk() {
             var d = new Date();
-            var ret = contrastTime(d, startTime);//获取返回值
-            //判断开始时间是否大于当前时间，秒为单位
+            var ret = contrastTime(d, startTime);
+ 
             if (ret >= 0) {
-                //大于则无法够买
+
                 return false
             }
             return true
         }
-        //判断是否开始抢购,这里可以改成其它方式
+
         if (isTimeOk() == true) {
             document.getElementById('add').style="";
         } else {
             document.getElementById('add').style="display:none";
-            //一秒判断一次
+
         }
 
-        //点击按钮后10秒不允许提交,也可以变成其它样式
+ 
         document.getElementById('add').onclick=function(){
             this.style= "display:none";
             setTimeout(function (){
                 document.getElementById('add').style="";
             },3000);
         }
-        //表单提交
+
         function doSubmitForm() {
             var form = document.getElementById('productFrom');
             form.submit();

@@ -2,10 +2,11 @@ package repositories
 
 import (
 	"database/sql"
-	"github.com/kataras/iris/core/errors"
 	"imooc-product/common"
 	"imooc-product/datamodels"
 	"strconv"
+
+	"github.com/kataras/iris/core/errors"
 )
 
 type IUserRepository interface {
@@ -39,7 +40,7 @@ func (u *UserManagerRepository) Conn() (err error) {
 
 func (u *UserManagerRepository) Select(userName string) (user *datamodels.User, err error) {
 	if userName == "" {
-		return &datamodels.User{}, errors.New("条件不能为空！")
+		return &datamodels.User{}, errors.New("xxxxx")
 	}
 	if err = u.Conn(); err != nil {
 		return &datamodels.User{}, err
@@ -54,7 +55,7 @@ func (u *UserManagerRepository) Select(userName string) (user *datamodels.User, 
 
 	result := common.GetResultRow(rows)
 	if len(result) == 0 {
-		return &datamodels.User{}, errors.New("用户不存在！")
+		return &datamodels.User{}, errors.New("xxxxxx")
 	}
 
 	user = &datamodels.User{}
@@ -90,7 +91,7 @@ func (u *UserManagerRepository) SelectByID(userId int64) (user *datamodels.User,
 	}
 	result := common.GetResultRow(row)
 	if len(result) == 0 {
-		return &datamodels.User{}, errors.New("用户不存在！")
+		return &datamodels.User{}, errors.New("xxxxx")
 	}
 	user = &datamodels.User{}
 	common.DataToStructByTagSql(result, user)

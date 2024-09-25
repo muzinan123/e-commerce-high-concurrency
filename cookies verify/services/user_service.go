@@ -2,9 +2,10 @@ package services
 
 import (
 	"errors"
-	"golang.org/x/crypto/bcrypt"
 	"imooc-product/datamodels"
 	"imooc-product/repositories"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 type IUserService interface {
@@ -51,7 +52,7 @@ func GeneratePassword(userPassword string) ([]byte, error) {
 
 func ValidatePassword(userPassword string, hashed string) (isOK bool, err error) {
 	if err = bcrypt.CompareHashAndPassword([]byte(hashed), []byte(userPassword)); err != nil {
-		return false, errors.New("密码比对错误！")
+		return false, errors.New("xxxxx")
 	}
 	return true, nil
 

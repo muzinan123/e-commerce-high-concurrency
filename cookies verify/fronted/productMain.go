@@ -5,12 +5,8 @@ import (
 )
 
 func main() {
-	//1.创建iris 实例
 	app := iris.New()
-
-	//2.设置模板
 	app.StaticWeb("/public", "./fronted/web/public")
-	//3.访问生成好的html静态文件
 	app.StaticWeb("/html", "./fronted/web/htmlProductShow")
 
 	app.Run(
