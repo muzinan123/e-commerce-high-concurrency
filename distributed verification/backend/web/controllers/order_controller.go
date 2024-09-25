@@ -1,9 +1,10 @@
 package controllers
 
 import (
+	"imooc-product/services"
+
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/mvc"
-	"imooc-product/services"
 )
 
 type OrderController struct {
@@ -14,7 +15,7 @@ type OrderController struct {
 func (o *OrderController) Get() mvc.View {
 	orderArray, err := o.OrderService.GetAllOrderInfo()
 	if err != nil {
-		o.Ctx.Application().Logger().Debug("查询订单信息失败")
+		o.Ctx.Application().Logger().Debug("xxxx")
 	}
 
 	return mvc.View{

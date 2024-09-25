@@ -1,12 +1,13 @@
 package controllers
 
 import (
-	"github.com/kataras/iris"
-	"github.com/kataras/iris/mvc"
 	"imooc-product/common"
 	"imooc-product/datamodels"
 	"imooc-product/services"
 	"strconv"
+
+	"github.com/kataras/iris"
+	"github.com/kataras/iris/mvc"
 )
 
 type ProductController struct {
@@ -24,7 +25,6 @@ func (p *ProductController) GetAll() mvc.View {
 	}
 }
 
-//修改商品
 func (p *ProductController) PostUpdate() {
 	product := &datamodels.Product{}
 	p.Ctx.Request().ParseForm()
@@ -86,9 +86,9 @@ func (p *ProductController) GetDelete() {
 	}
 	isOk := p.ProductService.DeleteProductByID(id)
 	if isOk {
-		p.Ctx.Application().Logger().Debug("删除商品成功，ID为：" + idString)
+		p.Ctx.Application().Logger().Debug("xxxxx，ID为：" + idString)
 	} else {
-		p.Ctx.Application().Logger().Debug("删除商品失败，ID为：" + idString)
+		p.Ctx.Application().Logger().Debug("xxxxxx，ID为：" + idString)
 	}
 	p.Ctx.Redirect("/product/all")
 }
