@@ -1,63 +1,59 @@
 package controllers
 
 import (
-	"github.com/kataras/iris"
-	"imooc-product/services"
-	"github.com/kataras/iris/mvc"
-	"imooc-product/datamodels"
 	"imooc-product/common"
+	"imooc-product/datamodels"
+	"imooc-product/services"
 	"strconv"
+
+	"github.com/kataras/iris"
+	"github.com/kataras/iris/mvc"
 )
 
 type ProductController struct {
-	Ctx iris.Context
+	Ctx            iris.Context
 	ProductService services.IProductService
 }
 
 func (p *ProductController) GetAll() mvc.View {
-	productArray ,_:=p.ProductService.GetAllProduct()
+	productArray, _ := p.ProductService.GetAllProduct()
 	return mvc.View{
-		Name:"product/view.html",
-		Data:iris.Map{
-			"productArray":productArray,
+		Name: "product/view.html",
+		Data: iris.Map{
+			"productArray": productArray,
 		},
 	}
 }
 
-//修改商品
-func (p *ProductController) PostUpdate ()  {
-	product :=&datamodels.Product{}
+func (p *ProductController) PostUpdate() {
+	product := &datamodels.Product{}
 	p.Ctx.Request().ParseForm()
-	dec := common.NewDecoder(&common.DecoderOptions{TagName:"imooc"})
-	if err:= dec.Decode(p.Ctx.Request().Form,product);err!=nil {
+	dec := common.NewDecoder(&common.DecoderOptions{TagName: "imooc"})
+	if err := dec.Decode(p.Ctx.Request().Form, product); err != nil {
 		p.Ctx.Application().Logger().Debug(err)
 	}
-	err:=p.ProductService.UpdateProduct(product)
-	if err !=nil {
+	err := p.ProductService.UpdateProduct(product)
+	if err != nil {
 		p.Ctx.Application().Logger().Debug(err)
 	}
 	p.Ctx.Redirect("/product/all")
 }
 
-
-
-
-
 func (p *ProductController) GetAdd() mvc.View {
 	return mvc.View{
-		Name:"product/add.html",
+		Name: "product/add.html",
 	}
 }
 
 func (p *ProductController) PostAdd() {
-	product :=&datamodels.Product{}
+	product := &datamodels.Product{}
 	p.Ctx.Request().ParseForm()
-	dec := common.NewDecoder(&common.DecoderOptions{TagName:"imooc"})
-	if err:= dec.Decode(p.Ctx.Request().Form,product);err!=nil {
+	dec := common.NewDecoder(&common.DecoderOptions{TagName: "imooc"})
+	if err := dec.Decode(p.Ctx.Request().Form, product); err != nil {
 		p.Ctx.Application().Logger().Debug(err)
 	}
-	_,err:=p.ProductService.InsertProduct(product)
-	if err !=nil {
+	_, err := p.ProductService.InsertProduct(product)
+	if err != nil {
 		p.Ctx.Application().Logger().Debug(err)
 	}
 	p.Ctx.Redirect("/product/all")
@@ -65,36 +61,34 @@ func (p *ProductController) PostAdd() {
 
 func (p *ProductController) GetManager() mvc.View {
 	idString := p.Ctx.URLParam("id")
-	id,err :=strconv.ParseInt(idString,10,16)
-	if err !=nil {
+	id, err := strconv.ParseInt(idString, 10, 16)
+	if err != nil {
 		p.Ctx.Application().Logger().Debug(err)
 	}
-	product,err:=p.ProductService.GetProductByID(id)
-	if err !=nil {
+	product, err := p.ProductService.GetProductByID(id)
+	if err != nil {
 		p.Ctx.Application().Logger().Debug(err)
 	}
 
 	return mvc.View{
-		Name:"product/manager.html",
-		Data:iris.Map{
-			"product":product,
+		Name: "product/manager.html",
+		Data: iris.Map{
+			"product": product,
 		},
 	}
 }
 
 func (p *ProductController) GetDelete() {
-	idString:=p.Ctx.URLParam("id")
-	id ,err := strconv.ParseInt(idString,10,64)
-	if err !=nil {
+	idString := p.Ctx.URLParam("id")
+	id, err := strconv.ParseInt(idString, 10, 64)
+	if err != nil {
 		p.Ctx.Application().Logger().Debug(err)
 	}
-	isOk:=p.ProductService.DeleteProductByID(id)
-	if isOk{
-		p.Ctx.Application().Logger().Debug("删除商品成功，ID为："+idString)
+	isOk := p.ProductService.DeleteProductByID(id)
+	if isOk {
+		p.Ctx.Application().Logger().Debug("删除商品成功，ID为：" + idString)
 	} else {
-		p.Ctx.Application().Logger().Debug("删除商品失败，ID为："+idString)
+		p.Ctx.Application().Logger().Debug("删除商品失败，ID为：" + idString)
 	}
 	p.Ctx.Redirect("/product/all")
 }
-
-
