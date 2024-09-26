@@ -15,7 +15,6 @@ func NewMovieManager() MovieRepository  {
 }
 
 func (m *MovieManager) GetMovieName() string  {
-	//模拟赋值给模型
-	movie:=&datamodels.Movie{Name:"慕课网视频"}
+	movie:=&datamodels.Movie{Name:"xxxx"}
 	return movie.Name
 }
